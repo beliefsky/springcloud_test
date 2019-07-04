@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: sky_web
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+server:
+  port: 8080
