@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>sky_eureka_server</module>
-        <module>sky_web</module>
-        <module>sky_demo_server</module>
+        <module>sky-config-server</module>
+        <module>sky-web</module>
+        <module>sky-demo-server</module>
     </modules>
 
     <properties>
@@ -40,10 +40,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter</artifactId>
         </dependency>
-    <!--    <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
-        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
