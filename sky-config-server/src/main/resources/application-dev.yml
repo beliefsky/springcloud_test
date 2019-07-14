@@ -1,7 +1,16 @@
 server:
   port: 8761
+spring:
+  application:
+    name: springcloud-config-server
   cloud:
     config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/beliefsky/spring-config-file/
+          username:
+          password:
 eureka:
   instance:
     hostname: 127.0.0.1
