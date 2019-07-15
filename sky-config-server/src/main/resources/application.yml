@@ -1,3 +1,18 @@
+server:
+  port: 8888
 spring:
-  profiles:
-    active: dev
+  application:
+    name: config-server
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/beliefsky/spring-config-file/
+          search-paths: /**
+          username:
+          password:
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
