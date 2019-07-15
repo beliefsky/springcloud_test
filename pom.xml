@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>sky-eureka-server</module>
         <module>sky-config-server</module>
         <module>sky-web</module>
         <module>sky-demo-server</module>
