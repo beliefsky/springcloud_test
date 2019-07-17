@@ -3,13 +3,15 @@ package com.sky.config;
 import com.sky.security.DomainUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
@@ -25,10 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         return new DomainUserDetailsService();
     }
+
     //密码加密器
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     //验证用户信息与密码
@@ -37,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
+        System.out.println(passwordEncoder().encode("123456"));
     }
 
     @Bean
@@ -49,5 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    /**
+     * http安全配置
+     *
+     * @param http http安全对象
+     * @throws Exception http安全异常信息
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated().and()
+                .httpBasic().and().csrf().disable();
     }
 }

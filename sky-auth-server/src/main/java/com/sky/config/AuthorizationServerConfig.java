@@ -27,11 +27,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     //用户信息相关的实现
     @Autowired
     private UserDetailsService userDetailsService;
+
+
     //token存放位置
     @Bean
     public RedisTokenStore tokenStore() {
         return new RedisTokenStore(redisConnectionFactory);
     }
+
+
     //配置认证管理器以及用户信息业务实现
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
@@ -40,6 +44,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(userDetailsService)//若无，refresh_token会有UserDetailsService is required错误
                 .tokenStore(tokenStore());
     }
+
+
     //配置认证规则，那些需要认证那些不需要
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
@@ -47,6 +53,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
     }
+
+
     //配置客户端
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

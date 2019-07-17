@@ -13,3 +13,9 @@ eureka:
   client:
     service-url:
       default-zone: http://127.0.0.1:8761/eureka/
+#安全配置
+security:
+  #oauth2配置
+  oauth2:
+    resource:
+      filter-order: 3
