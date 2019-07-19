@@ -3,7 +3,7 @@ package com.sky.authentication.wechat.entity;
 import lombok.Data;
 
 @Data
-public class WeChatResult {
+public class WechatResult {
     private String errcode;
     private String errmsg;
 

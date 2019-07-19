@@ -3,7 +3,7 @@ package com.sky.authentication.wechat.entity;
 import lombok.Data;
 
 @Data
-public class WeChatUserInfo {
+public class WechatUserInfo {
     /**
      * 普通用户的标识，对当前开发者帐号唯一
      */

@@ -1,9 +1,9 @@
 package com.sky.authentication.wechat.factory;
 
-import com.sky.authentication.wechat.WeChatAccessGrant;
-import com.sky.authentication.wechat.adapter.WeChatAdapter;
-import com.sky.authentication.wechat.api.IWeChatApi;
-import com.sky.authentication.wechat.provider.WeChatServiceProvider;
+import com.sky.authentication.wechat.WechatAccessGrant;
+import com.sky.authentication.wechat.adapter.WechatAdapter;
+import com.sky.authentication.wechat.api.IWechatApi;
+import com.sky.authentication.wechat.provider.WechatServiceProvider;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -12,14 +12,14 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2ServiceProvider;
 
-public class WeChatConnectionFactory extends OAuth2ConnectionFactory<IWeChatApi> {
+public class WechatConnectionFactory extends OAuth2ConnectionFactory<IWechatApi> {
 
     /**
      * @param appId
      * @param appSecret
      */
-    public WeChatConnectionFactory(String providerId, String appId, String appSecret) {
-        super(providerId, new WeChatServiceProvider(appId, appSecret), new WeChatAdapter());
+    public WechatConnectionFactory(String providerId, String appId, String appSecret) {
+        super(providerId, new WechatServiceProvider(appId, appSecret), new WechatAdapter());
     }
 
     /**
@@ -27,28 +27,28 @@ public class WeChatConnectionFactory extends OAuth2ConnectionFactory<IWeChatApi>
      */
     @Override
     protected String extractProviderUserId(AccessGrant accessGrant) {
-        if (accessGrant instanceof WeChatAccessGrant) {
-            return ((WeChatAccessGrant) accessGrant).getOpenId();
+        if (accessGrant instanceof WechatAccessGrant) {
+            return ((WechatAccessGrant) accessGrant).getOpenId();
         }
         return null;
     }
 
     @Override
-    public Connection<IWeChatApi> createConnection(AccessGrant accessGrant) {
+    public Connection<IWechatApi> createConnection(AccessGrant accessGrant) {
         return new OAuth2Connection<>(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
                 accessGrant.getRefreshToken(), accessGrant.getExpireTime(), getOAuth2ServiceProvider(), getApiAdapter(extractProviderUserId(accessGrant)));
     }
 
     @Override
-    public Connection<IWeChatApi> createConnection(ConnectionData data) {
+    public Connection<IWechatApi> createConnection(ConnectionData data) {
         return new OAuth2Connection<>(data, getOAuth2ServiceProvider(), getApiAdapter(data.getProviderUserId()));
     }
 
-    private ApiAdapter<IWeChatApi> getApiAdapter(String providerUserId) {
-        return new WeChatAdapter(providerUserId);
+    private ApiAdapter<IWechatApi> getApiAdapter(String providerUserId) {
+        return new WechatAdapter(providerUserId);
     }
 
-    private OAuth2ServiceProvider<IWeChatApi> getOAuth2ServiceProvider() {
-        return (OAuth2ServiceProvider<IWeChatApi>) getServiceProvider();
+    private OAuth2ServiceProvider<IWechatApi> getOAuth2ServiceProvider() {
+        return (OAuth2ServiceProvider<IWechatApi>) getServiceProvider();
     }
 }

@@ -8,15 +8,15 @@ import org.springframework.social.oauth2.AccessGrant;
  * 所以在这里继承了标准AccessGrant，添加了openId字段，作为对微信access_token信息的封装。
  */
 @Data
-public class WeChatAccessGrant extends AccessGrant {
+public class WechatAccessGrant extends AccessGrant {
 
     private String openId;
 
-    public WeChatAccessGrant() {
+    public WechatAccessGrant() {
         super("");
     }
 
-    public WeChatAccessGrant(String accessToken, String scope, String refreshToken, Long expiresIn) {
+    public WechatAccessGrant(String accessToken, String scope, String refreshToken, Long expiresIn) {
         super(accessToken, scope, refreshToken, expiresIn);
     }
 }

@@ -1,7 +1,7 @@
 package com.sky.authentication.wechat.template;
 
-import com.sky.authentication.wechat.WeChatAccessGrant;
-import com.sky.authentication.wechat.entity.WeChatResult;
+import com.sky.authentication.wechat.WechatAccessGrant;
+import com.sky.authentication.wechat.entity.WechatResult;
 import com.sky.authentication.wechat.utils.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-public class WeChatOAuth2Template extends OAuth2Template {
+public class WechatOAuth2Template extends OAuth2Template {
     private String clientId;
     private String clientSecret;
     private String accessTokenUrl;
@@ -22,7 +22,7 @@ public class WeChatOAuth2Template extends OAuth2Template {
     private static final String REFRESH_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/refresh_token";
 
 
-    public WeChatOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
+    public WechatOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
         setUseParametersForClientAuthentication(true);
         this.clientId = clientId;
@@ -73,9 +73,9 @@ public class WeChatOAuth2Template extends OAuth2Template {
 
 //        log.info("获取access_token, 响应内容: " + response);
 
-        WeChatResult result;
+        WechatResult result;
         try {
-            result = JsonUtils.getObjectMapper().readValue(response, WeChatResult.class);
+            result = JsonUtils.getObjectMapper().readValue(response, WechatResult.class);
             if (StringUtils.isNotBlank(result.getErrcode())) {
 //                log.error("获取access token失败, errcode:" + result.getErrcode() + ", errmsg:" + result.getErrmsg());
                 return null;
@@ -85,7 +85,7 @@ public class WeChatOAuth2Template extends OAuth2Template {
             e.printStackTrace();
             return null;
         }
-        WeChatAccessGrant accessToken = new WeChatAccessGrant(
+        WechatAccessGrant accessToken = new WechatAccessGrant(
                 result.getAccess_token(),
                 result.getScope(),
                 result.getRefresh_token(),
