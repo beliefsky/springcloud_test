@@ -1,8 +1,8 @@
-package com.sky.authentication.wechat.provider;
+package com.sky.authentication.social.wechat.provider;
 
-import com.sky.authentication.wechat.api.IWechatApi;
-import com.sky.authentication.wechat.api.WechatApiImpl;
-import com.sky.authentication.wechat.template.WechatOAuth2Template;
+import com.sky.authentication.social.wechat.api.IWechatApi;
+import com.sky.authentication.social.wechat.api.WechatApiImpl;
+import com.sky.authentication.social.wechat.template.WechatOAuth2Template;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 
 public class WechatServiceProvider extends AbstractOAuth2ServiceProvider<IWechatApi> {

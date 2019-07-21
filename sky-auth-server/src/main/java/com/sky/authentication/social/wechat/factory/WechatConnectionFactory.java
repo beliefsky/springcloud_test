@@ -1,9 +1,9 @@
-package com.sky.authentication.wechat.factory;
+package com.sky.authentication.social.wechat.factory;
 
-import com.sky.authentication.wechat.WechatAccessGrant;
-import com.sky.authentication.wechat.adapter.WechatAdapter;
-import com.sky.authentication.wechat.api.IWechatApi;
-import com.sky.authentication.wechat.provider.WechatServiceProvider;
+import com.sky.authentication.social.wechat.WechatAccessGrant;
+import com.sky.authentication.social.wechat.adapter.WechatAdapter;
+import com.sky.authentication.social.wechat.api.IWechatApi;
+import com.sky.authentication.social.wechat.provider.WechatServiceProvider;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;

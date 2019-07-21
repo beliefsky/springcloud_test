@@ -1,4 +1,4 @@
-package com.sky.authentication.wechat.entity;
+package com.sky.authentication.social.wechat.entity;
 
 import lombok.Data;
 

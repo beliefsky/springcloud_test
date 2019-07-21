@@ -1,7 +1,7 @@
-package com.sky.authentication.wechat.api;
+package com.sky.authentication.social.wechat.api;
 
-import com.sky.authentication.wechat.entity.WechatUserInfo;
-import com.sky.authentication.wechat.utils.JsonUtils;
+import com.sky.authentication.social.wechat.entity.WechatUserInfo;
+import com.sky.authentication.social.wechat.utils.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;

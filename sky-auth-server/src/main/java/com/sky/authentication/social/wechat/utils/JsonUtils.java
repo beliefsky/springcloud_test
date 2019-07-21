@@ -1,4 +1,4 @@
-package com.sky.authentication.wechat.utils;
+package com.sky.authentication.social.wechat.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,4 +1,4 @@
-package com.sky.authentication.wechat;
+package com.sky.authentication.social.wechat;
 
 import lombok.Data;
 import org.springframework.social.oauth2.AccessGrant;

@@ -1,9 +1,10 @@
 package com.sky.config;
 
+import com.sky.authentication.social.wechat.MySpringSocialConfigurer;
 import com.sky.security.DomainUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,12 +15,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    private SpringSocialConfigurer mySocialSecurityConfig;
 
 
     //用户信息业务类
@@ -40,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
-        System.out.println(passwordEncoder().encode("123456"));
     }
 
     @Bean
@@ -67,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()
-                .and().csrf().disable();
+                .and().csrf().disable()
+                .apply(mySocialSecurityConfig);
     }
 }

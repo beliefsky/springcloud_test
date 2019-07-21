@@ -1,7 +1,7 @@
-package com.sky.authentication.wechat.adapter;
+package com.sky.authentication.social.wechat.adapter;
 
-import com.sky.authentication.wechat.api.IWechatApi;
-import com.sky.authentication.wechat.entity.WechatUserInfo;
+import com.sky.authentication.social.wechat.api.IWechatApi;
+import com.sky.authentication.social.wechat.entity.WechatUserInfo;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;

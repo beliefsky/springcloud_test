@@ -11,7 +11,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -27,6 +30,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     //用户信息相关的实现
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private DataSource dataSource;
 
 
     //token存放位置
@@ -58,14 +63,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     //配置客户端
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("pig")//客户端账户
-                .scopes("server")//作用域
-                .secret("pig")//客户端密码
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")//授权方式
-                .and()//不同的客户端链接
-                .withClient("webapp")
-                .scopes("xx")
-                .authorizedGrantTypes("implicit");
+//        PigClientDetailsService clientDetailsService = new PigClientDetailsService(dataSource);
+//        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+//        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+//        clients.withClientDetails(clientDetailsService);
+
+        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
     }
 }
