@@ -17,8 +17,8 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
   social:
-    filterProcessesUrl: /social
-    weixin:
+    filter-processes-url: /social
+    wechat:
       app-id: wx8a47a66e22296c62
       app-secret: deb57af7ec1753a2668889e74b34b789
 
