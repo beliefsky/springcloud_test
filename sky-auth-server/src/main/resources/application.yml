@@ -1,5 +1,5 @@
 server:
-  port: 3000
+  port: 8080
 spring:
   application:
     name: auth-server
@@ -19,8 +19,8 @@ spring:
   social:
     filter-processes-url: /social
     wechat:
-      app-id: wx8a47a66e22296c62
-      app-secret: deb57af7ec1753a2668889e74b34b789
+      app-id: wx4a11ae335e843db1
+      app-secret: 09069ff8aa678e0262b397b65dd0d43e
 
 eureka:
   client:
@@ -32,3 +32,4 @@ eureka:
 #  oauth2:
 #    resource:
 #      filter-order: 3
+# https://gitee.com/lvhaibao/spring-lhbauth.git

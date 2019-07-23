@@ -1,4 +1,4 @@
-package com.sky.authentication.social.wechat;
+package com.sky.authentication.social;
 
 import lombok.Data;
 import org.springframework.social.security.SocialAuthenticationFilter;

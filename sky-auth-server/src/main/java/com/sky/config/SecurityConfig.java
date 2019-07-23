@@ -1,6 +1,5 @@
 package com.sky.config;
 
-import com.sky.authentication.social.wechat.MySpringSocialConfigurer;
 import com.sky.security.DomainUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -3,6 +3,7 @@ package com.sky.authentication.social.wechat.template;
 import com.sky.authentication.social.wechat.WechatAccessGrant;
 import com.sky.authentication.social.wechat.entity.WechatResult;
 import com.sky.authentication.social.wechat.utils.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+@Slf4j
 public class WechatOAuth2Template extends OAuth2Template {
     private String clientId;
     private String clientSecret;
@@ -66,18 +68,18 @@ public class WechatOAuth2Template extends OAuth2Template {
 
     private AccessGrant getAccessToken(StringBuilder accessTokenRequestUrl) {
 
-//        log.info("获取access_token, 请求URL: " + accessTokenRequestUrl.toString());
+        log.info("获取access_token, 请求URL: " + accessTokenRequestUrl.toString());
 
         //发送获取token
         String response = getRestTemplate().getForObject(accessTokenRequestUrl.toString(), String.class);
 
-//        log.info("获取access_token, 响应内容: " + response);
+        log.info("获取access_token, 响应内容: " + response);
 
         WechatResult result;
         try {
             result = JsonUtils.getObjectMapper().readValue(response, WechatResult.class);
             if (StringUtils.isNotBlank(result.getErrcode())) {
-//                log.error("获取access token失败, errcode:" + result.getErrcode() + ", errmsg:" + result.getErrmsg());
+                log.error("获取access token失败, errcode:" + result.getErrcode() + ", errmsg:" + result.getErrmsg());
                 return null;
             }
 
@@ -101,6 +103,7 @@ public class WechatOAuth2Template extends OAuth2Template {
      */
     @Override
     public String buildAuthenticateUrl(OAuth2Parameters parameters) {
+        parameters.setRedirectUri("http://www.dhwork.cn/social/wechat");
         return super.buildAuthenticateUrl(parameters) + "&appid=" + clientId + "&scope=snsapi_login";
     }
 

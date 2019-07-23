@@ -1,6 +1,5 @@
-package com.sky.authentication.social.wechat;
+package com.sky.authentication.social;
 
-import com.sky.authentication.social.SocialProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +63,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         //配置处理的url
         MySpringSocialConfigurer configurer = new MySpringSocialConfigurer(filterProcessesUrl);
         //配置注册页
-        configurer.signupUrl("/defaultSignUp");
+        configurer.signupUrl("/defaultSignUp.html");
         configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }

@@ -1,4 +1,4 @@
-package com.sky.authentication.social.wechat;
+package com.sky.authentication.social;
 
 import org.springframework.social.security.SocialAuthenticationFilter;
 

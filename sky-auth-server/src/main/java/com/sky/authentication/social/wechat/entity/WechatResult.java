@@ -12,4 +12,5 @@ public class WechatResult {
     private String refresh_token;
     private Long expires_in;
     private String openid;
+    private String unionid;
 }
