@@ -1,14 +1,13 @@
 package com.sky.config;
 
+import com.sky.authentication.phone.PhoneAuthenticationSecurityConfig;
 import com.sky.security.DomainUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -18,13 +17,13 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
     private SpringSocialConfigurer mySocialSecurityConfig;
+    @Autowired
+    private PhoneAuthenticationSecurityConfig phoneAuthenticationSecurityConfig;
 
 
     //用户信息业务类
@@ -72,6 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().csrf().disable()
-                .apply(mySocialSecurityConfig);
+                .apply(mySocialSecurityConfig)
+                .and()
+                .apply(phoneAuthenticationSecurityConfig);
     }
 }
