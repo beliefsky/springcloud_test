@@ -38,13 +38,13 @@ public class HttpConnectionPoolUtil {
 
     private static Logger logger = LoggerFactory.getLogger(HttpConnectionPoolUtil.class);
 
-    private static final int CONNECT_TIMEOUT = 3000;// 设置连接建立的超时时间为10s
-    private static final int SOCKET_TIMEOUT = 3000;
+    private static final int CONNECT_TIMEOUT = 5000;// 设置连接建立的超时时间为10s
+    private static final int SOCKET_TIMEOUT = 5000;
     private static final int MAX_CONN = 100; // 最大连接数
     private static final int Max_PRE_ROUTE = 100;
     private static final int MAX_ROUTE = 100;
-    private static final int httpMonitorInterval = 3000;
-    private static final int httpIdelTimeout = 2000;
+    private static final int httpMonitorInterval = 5000;
+    private static final int httpIdelTimeout = 3000;
     private static CloseableHttpClient httpClient; // 发送请求的客户端单例
     private static PoolingHttpClientConnectionManager manager; //连接池管理类
     private static ScheduledExecutorService monitorExecutor;
