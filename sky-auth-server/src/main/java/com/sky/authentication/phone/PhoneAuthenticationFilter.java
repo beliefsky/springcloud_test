@@ -14,7 +14,7 @@ public class PhoneAuthenticationFilter extends AbstractAuthenticationProcessingF
     // ~ Static fields/initializers
     // =====================================================================================
 
-    public static final String TIGER_SECURITY_FORM_MOBILE_KEY = "mobile";
+    private static final String TIGER_SECURITY_FORM_MOBILE_KEY = "mobile";
     private String mobileParameter = TIGER_SECURITY_FORM_MOBILE_KEY;
     //public static final String SPRING_SECURITY_FORM_PASSWORD_KEY = "password";
     // private String passwordParameter = SPRING_SECURITY_FORM_PASSWORD_KEY;

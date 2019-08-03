@@ -1,42 +1,34 @@
-package com.sky.authentication.phone;
+package com.sky.authentication.wechat;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class PhoneAuthenticationToken extends AbstractAuthenticationToken {
-    private static final long serialVersionUID = 500L;
-    private final Object principal;//用户名
-    //private Object credentials; 密码 手机登录验证码在登录前已经验证 考虑手机验证码通用 没有放到这里
+public class WechatAuthenticationToken extends AbstractAuthenticationToken {
+    private final Object principal;
 
-    /**
-     * 没有认证成功
-     * @param mobile 手机号
-     */
-    PhoneAuthenticationToken(Object mobile) {
+
+    public WechatAuthenticationToken(Object code) {
         super(null);
-        this.principal = mobile;
-        this.setAuthenticated(false);
+        this.principal = code;
+        super.setAuthenticated(false);
     }
 
-    /**
-     * 认证成功同时进行权限设置
-     * @param principal
-     * @param authorities
-     */
-    PhoneAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
+    public WechatAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         super.setAuthenticated(true);
     }
 
+    @Override
     public Object getCredentials() {
         return null;
     }
 
+    @Override
     public Object getPrincipal() {
-        return this.principal;
+        return null;
     }
 
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
