@@ -39,6 +39,9 @@ public class WechatAuthenticationProvider implements AuthenticationProvider {
         }
         try {
             WechatAccessToken accessToken = objectMapper.readValue(res, WechatAccessToken.class);
+            if (null != accessToken.getUnionid()) {
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
