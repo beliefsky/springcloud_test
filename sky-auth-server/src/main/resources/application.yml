@@ -9,27 +9,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-  social:
-    filter-processes-url: /social
-    wechat:
-      app-id: wx4a11ae335e843db1
-      app-secret: 09069ff8aa678e0262b397b65dd0d43e
-
 eureka:
   client:
     service-url:
       default-zone: http://127.0.0.1:8761/eureka/
-##安全配置
-#security:
-#  #oauth2配置
-#  oauth2:
-#    resource:
-#      filter-order: 3
-# https://gitee.com/lvhaibao/spring-lhbauth.git

@@ -1,78 +1,71 @@
 package com.sky.config;
 
-import com.sky.authentication.phone.PhoneAuthenticationSecurityConfig;
-import com.sky.security.DomainUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.authentication.DelegatingReactiveAuthenticationManager;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import reactor.core.publisher.Mono;
 
+import java.util.LinkedList;
 
-@Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-
+@EnableWebFluxSecurity
+public class SecurityConfig {
     @Autowired
-    private SpringSocialConfigurer mySocialSecurityConfig;
-    @Autowired
-    private PhoneAuthenticationSecurityConfig phoneAuthenticationSecurityConfig;
+    PasswordEncoder passwordEncoder;
 
-
-    //用户信息业务类
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new DomainUserDetailsService();
-    }
-
-    //密码加密器
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
-    //验证用户信息与密码
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
 
     @Bean
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        http
+                .authorizeExchange()
+                .pathMatchers(
+                        "/actuator/**",
+                        "/oauth/**",
+                        "/swagger-ui.html/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs/**",
+                        "/webjars/**"
+                ).permitAll()
+                .anyExchange().authenticated()
+                .and().csrf().disable();
+        return http.build();
     }
 
-    //不定义没有password grant_type
-    @Override
+    public ReactiveAuthenticationManager reactiveAuthenticationManager() {
+        final ReactiveUserDetailsService detailsService = userDetailsService();
+        LinkedList<ReactiveAuthenticationManager> managers = new LinkedList<>();
+        managers.add(authentication -> {
+            // 其他登陆方式 (比如手机号验证码登陆) 可在此设置不得抛出异常或者 Mono.error
+            return Mono.empty();
+        });
+        // 必须放最后不然会优先使用用户名密码校验但是用户名密码不对时此 AuthenticationManager 会调用 Mono.error 造成后面的 AuthenticationManager 不生效
+        managers.add(new UserDetailsRepositoryReactiveAuthenticationManager(detailsService));
+        return new DelegatingReactiveAuthenticationManager(managers);
+    }
+
+
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    /**
-     * http安全配置
-     *
-     * @param http http安全对象
-     * @throws Exception http安全异常信息
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic()
-                .and().csrf().disable()
-                .apply(mySocialSecurityConfig)
-                .and()
-                .apply(phoneAuthenticationSecurityConfig);
+    public MapReactiveUserDetailsService userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("user")
+                .roles("USER")
+                .build();
+        return new MapReactiveUserDetailsService(user);
     }
 }
