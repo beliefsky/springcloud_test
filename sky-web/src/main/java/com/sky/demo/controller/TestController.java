@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 @RestController
 public class TestController {
@@ -35,14 +36,15 @@ public class TestController {
         TestModel model = new TestModel();
         model.setList(Arrays.asList(tests));
 
-        String filePath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile()
-                + "static/excel/template.xlsx";
+
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("static/excel/template.xlsx");
+//        String in = this.getClass().getClassLoader().getResource("static/excel/template.xlsx").toString();
 
         OutputStream outputStream = new FileOutputStream("/home/weijing/test.xlsx");
-        ExcelTemplateUtils.process(filePath, model, outputStream);
+        ExcelTemplateUtils.process(in, model, outputStream);
         outputStream.flush();
         outputStream.close();
-        return filePath;
+        return "hello world";
     }
 
     @GetMapping("/test")

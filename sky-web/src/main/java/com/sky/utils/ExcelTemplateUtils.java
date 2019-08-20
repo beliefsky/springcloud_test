@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -20,6 +21,30 @@ import java.util.regex.Pattern;
 
 public class ExcelTemplateUtils {
 
+    /**
+     * 根据模板生成 excel 文件
+     *  @param templateStream 模板文件流
+     * @param data         数据
+     * @param os           生成 excel 输出流，可保存成文件或返回到前端等
+     */
+    public static void process(InputStream templateStream, Object data, OutputStream os) {
+        try {
+            OPCPackage pkg = OPCPackage.open(templateStream);
+
+            XSSFWorkbook wb = new XSSFWorkbook(pkg);
+            Iterator<Sheet> iterable = wb.sheetIterator();
+            while (iterable.hasNext()) {
+                processSheet(data, iterable.next());
+            }
+            wb.write(os);
+            pkg.close();
+            templateStream.close();
+            wb.close();
+
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * 根据模板生成 excel 文件
      *  @param templatePath 模板文件路径
