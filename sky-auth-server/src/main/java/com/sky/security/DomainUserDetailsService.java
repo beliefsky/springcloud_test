@@ -15,11 +15,12 @@ public class DomainUserDetailsService implements UserDetailsService, SocialUserD
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
+        s = "123";
        log.info("select username: " + s);
 
         String[] auth = {"QUERY_DEMO", "DELETE_DEMO"};
 
-        return new User(s, "{bcrypt}$2a$10$Yu2fbUjm/ZtA.hhHhiI1su6RK8SaNIn6aQT5sMKLzzuGQM3HTOZjm", AuthorityUtils.createAuthorityList(auth));
+        return new User(s, "{noop}123456", AuthorityUtils.createAuthorityList(auth));
 
 //        throw  new UsernameNotFoundException("用户["+username+"]不存在");
     }

@@ -1,10 +1,12 @@
 package com.sky.authentication.phone;
 
 import com.sky.security.DomainUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +15,9 @@ public class PhoneAuthenticationSecurityConfig extends SecurityConfigurerAdapter
 
     //    @Autowired
 //    private AuthenticationFailureHandler authenticationFailureHandler;
-//    @Autowired
-//    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
     //实现类怎么确定？ 自定义的实现？？
 //    @Autowired
 //    private UserDetailsService userDetailsService;
@@ -24,7 +27,7 @@ public class PhoneAuthenticationSecurityConfig extends SecurityConfigurerAdapter
         PhoneAuthenticationFilter filter = new PhoneAuthenticationFilter();
         filter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 //        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-//        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
 
         PhoneAuthenticationProvider provider = new PhoneAuthenticationProvider();
         provider.setUserDetailsService(new DomainUserDetailsService());

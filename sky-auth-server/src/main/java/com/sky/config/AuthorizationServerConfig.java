@@ -37,7 +37,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     //token存放位置
     @Bean
     public RedisTokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+//        return new RedisTokenStore(redisConnectionFactory);
+        Jackson2SerializationStrategy jackjson2SerializationStrategy = new Jackson2SerializationStrategy();
+        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+        redisTokenStore.setSerializationStrategy(jackjson2SerializationStrategy);
+        return redisTokenStore;
     }
 
 
