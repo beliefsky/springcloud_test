@@ -1,0 +1,27 @@
+server:
+  port: 7970
+spring:
+  application:
+    name: TransactionManager
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: dhza
+    password: xjhr&0tdmTCgKYjN
+    url: jdbc:mysql://172.16.3.13:3306/dh_transaction_manager?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+tx-lcn:
+  manager:
+    host: 127.0.0.1
+    port: 8070
+    admin-key: pig
+  logger:
+    enabled: true
+    driver-class-name: ${spring.datasource.driver-class-name}
+    jdbc-url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}

@@ -15,6 +15,7 @@
         <module>sky-web</module>
         <module>sky-demo-server</module>
         <module>sky-auth-server</module>
+        <module>sky-transaction-manager</module>
     </modules>
 
     <properties>

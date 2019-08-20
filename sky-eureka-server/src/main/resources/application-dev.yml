@@ -5,7 +5,7 @@ spring:
     name: eureka-server
 eureka:
   instance:
-    hostname: 127.0.0.1
+    hostname: test.beliefsky.com
     prefer-ip-address: true
   client:
     fetch-registry: false
