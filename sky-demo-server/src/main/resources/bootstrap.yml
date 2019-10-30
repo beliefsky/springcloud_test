@@ -1,14 +1,23 @@
 spring:
   application:
     name: demo-server # 对应config-server获取的配置文件的{application}
+  profiles:
+    active: dev
   cloud:
-    config:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: dev  # 对应config-server获取的配置文件的{profile}
+#      label: master # 对应config-server获取的配置文件的{label}，即Git仓库分支i
+    consul:
       discovery:
+        hostname: localhost
+        port: 8500
+        prefer-ip-address: true
+      config:
+        prefix: config
         enabled: true
-        service-id: config-server
-      profile: dev  # 对应config-server获取的配置文件的{profile}
-      label: master # 对应config-server获取的配置文件的{label}，即Git仓库分支
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/
+        format: yaml
+        watch:
+          enabled: true

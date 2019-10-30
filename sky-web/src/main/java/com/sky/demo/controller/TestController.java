@@ -32,7 +32,6 @@ public class TestController {
                 new Test(5, "test5", "女"),
                 new Test(6, "test6", "男"),
         };
-
         TestModel model = new TestModel();
         model.setList(Arrays.asList(tests));
 
