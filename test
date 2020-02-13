@@ -1,0 +1,11 @@
+sb.append("<div style=\"font-size: 16px;color: rgb(102, 102, 102);\">")
+                .append("<div class=\"wrap\" style=\"width: 50%;margin: 5% auto;\">")
+                .append("<div class=\"header\" style=\"width: 100%;height: 50px;background-color: #00A4FF;color: white;\">")
+                .append("<h2 style=\"line-height:50px;padding-left:30px;\">9xlink</h2></div><div class=\"main\"")
+                .append(" style=\"border: 1px solid #D7D7D7;\"><div style=\"margin-left:30px\">")
+                .append("<p style=\"font-size: 18px;font-weight: 600;\">尊敬的XXX用户：</p>").append("<p>这是来自").append(name).append("的新订单，请查看，谢谢！</p><p></p><p>或复制以下链接到浏览器中以查看：</p>")
+                .append("<p style=\"width:90%;word-wrap: break-word\"><a href=\"#\" style=\"color: #2277da;\">").append(redirectUrl).append("</a>")
+                .append("</p><p style=\"float: right;padding-right: 30px;color: rgb(0,0,0);margin: 0;\">以此致敬</p>")
+                .append("<div style=\"clear: both;\"></div>")
+                .append("<p style=\"float:right;padding-right: 15px;color: rgb(0,0,0);margin-bottom:16px ;\">")
+                .append("XXX团队</p><div style=\"clear: both;\"></div></div></div></div></div>");
